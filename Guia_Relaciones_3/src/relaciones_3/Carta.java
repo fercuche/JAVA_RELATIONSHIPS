@@ -12,12 +12,12 @@ package relaciones_3;
 public class Carta {
     
     private int numeroCarta;
-    private String palo;
+    private EnumMazo palo;
 
     public Carta() {
     }
 
-    public Carta(int numeroCarta, String palo) {
+    public Carta(int numeroCarta, EnumMazo palo) {
         this.numeroCarta = numeroCarta;
         this.palo = palo;
     }
@@ -30,11 +30,11 @@ public class Carta {
         this.numeroCarta = numeroCarta;
     }
 
-    public String getPalo() {
+    public EnumMazo getPalo() {
         return palo;
     }
 
-    public void setPalo(String palo) {
+    public void setPalo(EnumMazo palo) {
         this.palo = palo;
     }
 

@@ -1,6 +1,7 @@
 package relaciones_3;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
@@ -14,20 +15,16 @@ public class BarajaService {
     Carta carta;
 
     public void crearBaraja() {
-        mazoAux.clear();
+
         for (int i = 0; i < 13; i++) {
             if (i > 0 && i < 8 || i > 9 && i < 13) {
-                carta = new Carta(i, "espada");
-                mazo.add(carta);
-                carta = new Carta(i, "basto");
-                mazo.add(carta);
-                carta = new Carta(i, "oro");
-                mazo.add(carta);
-                carta = new Carta(i, "copa");
-                mazo.add(carta);
+                for (EnumMazo enum1 : EnumSet.range(EnumMazo.ESPADA, EnumMazo.COPA)) {
+                    carta = new Carta(i, enum1);
+                    mazo.add(carta);
+                }
             }
-            System.out.println(mazo);
         }
+        System.out.println(mazo);
     }
 
     public void mezclarCartas() {
@@ -81,64 +78,93 @@ public class BarajaService {
             System.out.println("No se han extraído cartas");
         }
     }
-    
-    public void mostrarBaraja(){
-        System.out.println("");
-        if(!mazo.isEmpty()){
+
+    public void mostrarBaraja() {
+        System.out.println("Las cartas en el mazo son: ");
+        if (!mazo.isEmpty()) {
             for (Carta carta : mazo) {
                 System.out.println(carta);
             }
+        } else {
+            System.out.println("El mazo está vacío");
         }
-        
+
     }
 
     public void menu() {
         int opciones, nSacar;
         boolean band = false;
-        do{
-        System.out.println("---MENU---");
-        System.out.println("1-Crear Baraja");
-        System.out.println("2-Mezclar cartas");
-        System.out.println("3-Sacar carta");
-        System.out.println("6-Repartir cartas");
-        System.out.println("5-Cartas disponibles en el mazo");
-        System.out.println("6-Ver cartas repartidas");
-        System.out.println("7-Mostrar baraja");
-        System.out.println("8-SALIR");
+        do {
+            System.out.println("---MENU---");
+            System.out.println("1-Crear Baraja");
+            System.out.println("2-Mezclar cartas");
+            System.out.println("3-Sacar carta");
+            System.out.println("4-Repartir cartas");
+            System.out.println("5-Cartas disponibles en el mazo");
+            System.out.println("6-Ver cartas repartidas");
+            System.out.println("7-Mostrar baraja");
+            System.out.println("8-SALIR");
+            System.out.println("Ingrese una opcion: ");
 
-        opciones = scanner.nextInt();
-        switch (opciones) {
-            case 1:
-                System.out.println("Baraja creada!");
-                crearBaraja();
-                break;
-            case 2:
-                mezclarCartas();
-                break;
-            case 3:
-                siguienteCarta();
-                break;
-            case 4:
-                System.out.println("Ingrese las cartas a sacar:");
-                nSacar = scanner.nextInt();
-                darCartas(nSacar);
-                break;
-            case 5:
-                cartasDisponibles();
-                break;
-            case 6:
-                cartasMonton();
-                break;
-            case 7:
-                mostrarBaraja();
-                break;
-            case 8:
-                System.out.println("Adiós!");
-            default:
-                System.out.println("Ingrese una opción correcta");
-        }
-            
-        }while(opciones !=8);
+            opciones = scanner.nextInt();
+            System.out.println();
+            switch (opciones) {
+                case 1:
+                    mazo.clear();
+                    mazoAux.clear();
+                    band = true;
+                    System.out.println("Baraja creada!");
+                    crearBaraja();
+                    break;
+                case 2:
+                    if (band) {
+                        mezclarCartas();
+                    } else {
+                        System.out.println("Cree el maso primero");
+                    }
+
+                    break;
+                case 3:
+                    if (band) {
+                        siguienteCarta();
+                    } else {
+                        System.out.println("Cree el maso primero");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Ingrese las cartas a sacar:");
+                    nSacar = scanner.nextInt();
+                    darCartas(nSacar);
+                    break;
+                case 5:
+                    if (band) {
+                        cartasDisponibles();
+                    } else {
+                        System.out.println("Cree el maso primero");
+                    }
+                    break;
+                case 6:
+                    if (band) {
+                        cartasMonton();
+                    } else {
+                        System.out.println("Cree el mazo primero");
+                    }
+                    break;
+                case 7:
+                    if (band) {
+                        mostrarBaraja();
+                    } else {
+                        System.out.println("Cree el maso primero");
+                    }
+                    break;
+                case 8:
+                    System.out.println("Adiós!");
+                    break;
+                default:
+                    System.out.println("Ingrese una opción correcta");
+            }
+
+        } while (opciones != 8);
     }
 
 }

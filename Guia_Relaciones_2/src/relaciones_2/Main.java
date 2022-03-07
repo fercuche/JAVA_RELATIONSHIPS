@@ -2,6 +2,7 @@
 Realizar el juego de la ruleta rusa de agua en Java. Como muchos saben, el juego se
 trata de un número de jugadores, que, con un revolver de agua, el cual posee una sola
 carga de agua, se dispara y se moja. Las clases a hacer del juego son las siguientes:
+
 Clase Revolver de agua: esta clase posee los siguientes atributos: posición actual
 (posición del tambor que se dispara, puede que esté el agua o no) y posición agua (la
 posición del tambor donde se encuentra el agua). Estas dos posiciones, se generarán
@@ -34,13 +35,22 @@ Pensar la lógica necesaria para realizar esto, usando los atributos de la clase
  */
 package relaciones_2;
 
+import java.util.ArrayList;
+
 public class Main {
 
- 
     public static void main(String[] args) {
-        
 
+        Jugador jugador=new Jugador();
+        RevolverDeAgua revolver=new RevolverDeAgua();
+        Juego juego=new Juego();
+        ArrayList<Jugador> jugadores=new ArrayList();
+        revolver.llenarRevolver();
+        System.out.println(revolver);
+        jugadores=jugador.cargarJugadores();
+        juego.llenarJuego(jugadores, revolver);
+        juego.ronda();
 
     }
-    
+
 }
